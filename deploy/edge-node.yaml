@@ -1,0 +1,17 @@
+# deploy/edge-node.yaml
+apiVersion: apps/v1
+kind: Deployment
+spec:
+  template:
+    spec:
+      containers:
+        - name: edge-node
+          image: opencdn/edge-node:v1.2
+          ports:
+            - containerPort: 179  # BGP
+            - containerPort: 8080 # Metrics
+          env:
+            - name: BGP_ASN
+              value: "64515"
+            - name: GEO_DB_PATH
+              value: "/data/GeoLite2-City.mmdb"
